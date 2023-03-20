@@ -1,12 +1,13 @@
 from django import forms
 from .models import User
-gender_choices = (("Male","Male"), ("Female","Female"))
 
 class StudentRegistration(forms.ModelForm):
-    gender = forms.ChoiceField(choices=gender_choices,widget=forms.RadioSelect())
     class Meta:
         model = User
         fields = '__all__'
         widgets = {
-            'password': forms.PasswordInput(render_value = True),
+            'name': forms.TextInput(attrs={'class':'form-control', 'id':'nameid'}),
+            'email': forms.EmailInput(attrs={'class':'form-control', 'id':'emailid'}),
+            'password': forms.PasswordInput(render_value = True, attrs={'class':'form-control', 'id':'passwordid'}),
+            'city': forms.TextInput(attrs={'class':'form-control', 'id':'cityid'}),
         }

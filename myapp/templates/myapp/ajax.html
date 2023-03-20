@@ -1,0 +1,31 @@
+<script>
+
+    $("#btnsave").click(function () {
+        console.log(' Save Button Clicked');
+        let nm = $('#nameid').val();
+        let em = $('#emailid').val();
+        let pw = $('#passwordid').val();
+        let ct = $('#cityid').val();
+        let csr = $('input[name=csrfmiddlewaretoken]').val()
+        if (nm == "") {
+            console.log('Name Can Not Be Blank')
+        } else if (em == "") {
+            console.log('Email Can Not Be Blank')
+        } else if (pw == "") {
+            console.log('Password Can Not Be Blank')
+        } else if (ct == "") {
+            console.log('City Can Not Be Blank')
+        } else {
+            console.log('nm:', nm)
+            mydata = { name: nm, email: em, password: pw, city: ct, csrfmiddlewaretoken: csr }
+            $.ajax({
+                url: "{% url 'save' %}",
+                method: "POST",
+                data: mydata,
+                success: function (data) {
+                    console.log(data);
+                }
+            })
+        }
+    });
+</script>

@@ -1,0 +1,50 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+  <div class="col-sm-4">
+    <h4 class="text-center alert alert-info">Add New Student</h4>
+    <form action="" method='POST'>
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type="button" id ="btnsave" class="btn btn-success" value="Save">
+    </form>
+  </div>
+
+  <div class="col-sm-7">
+    <h4 class="text-center alert alert-info">Show Students Information</h4>
+    {% if student %}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">City</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for st in student %}
+        <tr>
+          <th scope="row">{{st.id}}</th>
+          <td>{{st.name}}</td>
+          <td>{{st.email}}</td>
+          <td>{{st.city}}</td>
+          <td>
+            <input type="button" class="btn btn-warning btn-sm" data-sid="{{st.id}}" value="Edit">
+            <input type="button" class="btn btn-danger btn-sm" data-sid="{{st.id}}" value="Delete">
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <h3 class="text-center alert alert-warning">No Record</h3>
+    {% endif %}
+  </div>
+</div>
+<script src="{% static 'myapp/js/jquery.js' %}"></script>
+{% include 'myapp/ajax.html' %}
+{% endblock content %}
